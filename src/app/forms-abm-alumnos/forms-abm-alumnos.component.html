@@ -1,0 +1,172 @@
+<div class="row">
+  <div class="col-1">
+
+    <div class="d-flex align-items-start">
+      <div class="nav flex-column nav-pills me-3" aria-orientation="vertical">
+        <button class="nav-link " data-bs-toggle="modal" data-bs-target="#altaAlumno">Nuevo Alumno</button>
+        <button class="nav-link " data-bs-toggle="modal" data-bs-target="#modificarAlumno">Modificar Alumno</button>
+        <button class="nav-link " data-bs-toggle="modal" data-bs-target="#eliminarAlumno">Eliminar Alumno</button>
+      </div>
+    </div>
+
+    <!-- NUEVO ALUMNO -->
+    <div class="modal fade" id="altaAlumno" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">Nuevo Alumno</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="flex-column">
+              <form [formGroup]="formulario" class="form-floating mb-3 ">
+
+                <input type="text" class="form-control" formControlName="nombre" id="floatingName" placeholder="name" required>
+                <label for="floatingName">Nombre</label>
+
+                <div *ngIf="formulario.get('nombre')?.touched && formulario.get('nombre')?.errors?.['required']"
+                  class="alert alert-danger" role="alert">Nombre Invalido!
+                </div>
+
+              </form>
+              <form [formGroup]="formulario" class="form-floating mb-3">
+
+                <input type="text" class="form-control" formControlName="apellido" id="floatingLastName" placeholder="lastName" required>
+                <label for="floatingLastName">Apellido</label>
+
+                <div *ngIf="formulario.get('apellido')?.touched && formulario.get('apellido')?.errors?.['required']"
+                  class="alert alert-danger" role="alert">Apellido Invalido!
+                </div>
+
+              </form>
+              <form [formGroup]="formulario" class="form-floating mb-3">
+
+                <input type="text" class="form-control" formControlName="documento" id="floatingDoc" placeholder="doc" required>
+                <label for="floatingDoc">Documento</label>
+
+                <div *ngIf="formulario.get('documento')?.touched && formulario.get('documento')?.errors?.['required']"
+                  class="alert alert-danger" role="alert">Documento Invalido!
+                </div>
+
+              </form>
+              <form [formGroup]="formulario" >
+
+                <p>Sexo: </p>
+                <input type="radio" formControlName="sexo" class="form-check-input" name="sexo" id="radioM" (click)="formulario.controls['sexo'].setValue('M')">
+                <label class="form-check-label" for="radioM" > Masculino </label>
+                <br>
+                <input type="radio" formControlName="sexo" class="form-check-input" name="sexo" id="radioF" (click)="formulario.controls['sexo'].setValue('F')">
+                <label class="form-check-label" for="radioF" > Femenino </label>
+
+              </form>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary" (click)="crearAlumno(formulario)" [disabled]="formulario.invalid" data-bs-dismiss="modal">Confirmar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+     <!-- MODIFICAR ALUMNO -->
+     <div class="modal fade" id="modificarAlumno" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">Modificar Alumno</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="flex-column">
+
+              <form [formGroup]="formularioMod" class="form-floating mb-3">
+                <input type="text" class="form-control" formControlName="documento" id="floatingDoc" placeholder="doc" required>
+                <label for="floatingDoc">Documento</label>
+
+                <div *ngIf="formularioMod.get('documento')?.touched && formularioMod.get('documento')?.errors?.['required']"
+                  class="alert alert-danger" role="alert">Documento Invalido!
+                </div>
+              </form>
+
+              <form [formGroup]="formularioMod" class="form-floating mb-3 ">
+
+                <input type="text" class="form-control" formControlName="nombre" id="floatingName" placeholder="name" required>
+                <label for="floatingName">Nombre</label>
+
+                <div *ngIf="formularioMod.get('nombre')?.touched && formularioMod.get('nombre')?.errors?.['required']"
+                  class="alert alert-danger" role="alert">Nombre Invalido!
+                </div>
+
+              </form>
+              <form [formGroup]="formularioMod" class="form-floating mb-3">
+
+                <input type="text" class="form-control" formControlName="apellido" id="floatingLastName" placeholder="lastName" required>
+                <label for="floatingLastName">Apellido</label>
+
+                <div *ngIf="formularioMod.get('apellido')?.touched && formularioMod.get('apellido')?.errors?.['required']"
+                  class="alert alert-danger" role="alert">Apellido Invalido!
+                </div>
+
+              </form>
+
+              <form [formGroup]="formularioMod" >
+
+                <p>Sexo: </p>
+                <input type="radio" formControlName="sexo" class="form-check-input" name="sexo" id="radioM" (click)="formularioMod.controls['sexo'].setValue('M')">
+                <label class="form-check-label" for="radioM" > Masculino </label>
+                <br>
+                <input type="radio" formControlName="sexo" class="form-check-input" name="sexo" id="radioF" (click)="formularioMod.controls['sexo'].setValue('F')">
+                <label class="form-check-label" for="radioF" > Femenino </label>
+
+              </form>
+
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary" (click)="modificarAlumno(formularioMod)" [disabled]="formularioMod.invalid" data-bs-dismiss="modal">Confirmar</button>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ELIMINAR ALUMNO -->
+    <div class="modal fade" id="eliminarAlumno" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">Eliminar Alumno</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="flex-column">
+
+              <form [formGroup]="formularioBaja" class="form-floating mb-3">
+                <input type="text" class="form-control" formControlName="documento" id="floatingDoc" placeholder="doc" required>
+                <label for="floatingDoc">Documento</label>
+
+                <div *ngIf="formularioBaja.get('documento')?.touched && formularioBaja.get('documento')?.errors?.['required']"
+                  class="alert alert-danger" role="alert">Documento Invalido!
+                </div>
+              </form>
+
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary" (click)="eliminarAlumno(formularioBaja)" [disabled]="formularioBaja.invalid" data-bs-dismiss="modal">Confirmar</button>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+
+  <div class="col-10">
+    <app-lista-de-alumnos
+    [listaActualizada]="listaAlumnos"
+    ></app-lista-de-alumnos>
+  </div>
+</div>
